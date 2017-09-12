@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import re
 import asyncio
 
@@ -9,7 +11,8 @@ client = discord.Client()
 
 
 @client.event
-async def on_ready():
+@asyncio.coroutine
+def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
@@ -17,10 +20,11 @@ async def on_ready():
 
 
 @client.event
-async def on_message(message):
+@asyncio.coroutine
+def on_message(message):
     m = re.match('/(roll|r)\s*(.*)', message.content)
     if (m):
         result = r.roll(m.group(2), option='multipass')
-        await client.send_message(message.channel, result)
+        yield from client.send_message(message.channel, result)
 
 client.run('MzU2ODU2Mzg4Nzg3MzcyMDMy.DJhjFg.gydjLkA-o43ZjX49j-_XiMPFx14')
