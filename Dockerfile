@@ -6,6 +6,6 @@ ADD rollerbot.py /
 ADD rolling.py /
 ADD app_token /
 
-EXPOSE 443:443
+EXPOSE 443
 
 CMD [ "python3", "/rollerbot.py" ]

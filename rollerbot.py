@@ -27,6 +27,6 @@ def on_message(message):
         result = r.roll(m.group(2), option='multipass')
         yield from client.send_message(message.channel, result)
 
-with open('/app_token', 'r') as f:
-    token = f.read()
+with open('./app_token', 'r') as f:
+    token = f.read().strip()
 client.run(token)
