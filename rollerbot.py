@@ -24,7 +24,10 @@ def on_ready():
 def on_message(message):
     m = re.match('/(roll|r)\s*(.*)', message.content)
     if (m):
-        result = r.roll(m.group(2), option='multipass')
+        results = []
+        for expr in m.group(2).split():
+            results.append(str(r.roll(expr, option='multipass')))
+        result = '; '.join(results)
         yield from client.send_message(message.channel, result)
 
 with open('./app_token', 'r') as f:
