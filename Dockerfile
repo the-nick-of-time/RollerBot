@@ -3,7 +3,7 @@ FROM python:3
 RUN pip install discord.py
 
 ADD rollerbot.py /
-ADD rolling.py /
+ADD rolling/ /
 ADD app_token /
 
 EXPOSE 443
