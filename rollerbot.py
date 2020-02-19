@@ -17,7 +17,12 @@ async def on_ready():
 
 @bot.command()
 async def roll(context: commands.Context, *args):
-    results = [dndice.verbose(expr) for expr in args]
+    results = []
+    for expr in args:
+        try:
+            results.append(dndice.verbose(expr))
+        except dndice.RollError as e:
+            results.append(str(e))
     await context.send('; '.join(results))
 
 
