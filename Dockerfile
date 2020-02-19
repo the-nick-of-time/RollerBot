@@ -1,9 +1,11 @@
-FROM python:3.5-alpine
+FROM python:3.8-alpine
 
-RUN pip install discord.py
+RUN apk add gcc musl-dev
+RUN pip install --no-cache discord.py
+RUN pip install --no-cache dndice
+RUN apk del gcc musl-dev
 
 ADD rollerbot.py /
-ADD rolling/ /
 ADD app_token /
 
 EXPOSE 443

@@ -5,7 +5,7 @@ import asyncio
 
 import discord
 
-import rolling as r
+import dndice
 
 client = discord.Client()
 
@@ -21,14 +21,15 @@ def on_ready():
 
 @client.event
 @asyncio.coroutine
-def on_message(message):
-    m = re.match('/(roll|r)\s*(.*)', message.content)
-    if (m):
+def on_message(message: discord.Message):
+    m = re.match(r'/(roll|r)\s*(.*)', message.content)
+    if m:
         results = []
         for expr in m.group(2).split():
-            results.append(str(r.roll(expr, option='multipass')))
+            results.append(dndice.verbose(expr))
         result = '; '.join(results)
-        yield from client.send_message(message.channel, result)
+        yield from message.channel.send(result)
+
 
 with open('./app_token', 'r') as f:
     token = f.read().strip()
