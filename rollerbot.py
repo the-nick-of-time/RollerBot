@@ -22,8 +22,15 @@ async def roll(context: commands.Context, *args):
         try:
             results.append(dndice.verbose(expr))
         except dndice.RollError as e:
-            results.append(str(e))
+            results.append(str(inner_exception(e)))
     await context.send('; '.join(results))
+
+
+def inner_exception(ex: dndice.RollError):
+    current = ex
+    while current.__cause__ is not None:
+        current = current.__cause__
+    return current
 
 
 with open('./app_token', 'r') as f:
